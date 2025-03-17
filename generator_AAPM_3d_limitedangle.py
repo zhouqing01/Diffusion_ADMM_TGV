@@ -33,11 +33,11 @@ def run(p_metho='TGV', p_n_view=90, p_rho_0=10, p_rho_1=10, p_alpha_0=1, p_alpha
     problem = 'limitedangle_CT_ADMM_TV_total'
     config_name = 'AAPM_256_ncsnpp_continuous'
     sde = 'VESDE'
-    num_scales = 2000
+    num_scales = 2000 #2000
     ckpt_num = 185
     N = num_scales
 
-    vol_name = 'L067'
+    vol_name = 'L067' # 100065 LIDC
     root = Path(f'./data/CT/ind/256_sorted/{vol_name}')
 
     # Parameters for the inverse problem
@@ -94,9 +94,9 @@ def run(p_metho='TGV', p_n_view=90, p_rho_0=10, p_rho_1=10, p_alpha_0=1, p_alpha
 
     # Specify save directory for saving generated samples
     if metho == 'TV':
-        save_root = Path(f'./results/{config_name}/{problem}/{metho}/n_view{n_view}/rho_{rho_0}-lambda_{lam}')
+        save_root = Path(f'./results/{config_name}/{problem}/{vol_name}/{metho}/n_view{n_view}/rho_{rho_0}-lambda_{lam}')
     else:
-        save_root = Path(f'./results/{config_name}/{problem}/{metho}/n_view{n_view}/rho0_{rho_0}-rho1_{rho_1}-lambda_{lam}-alpha0_{alpha_0}-alpha_1_{alpha_1}')
+        save_root = Path(f'./results/{config_name}/{problem}/{vol_name}/{metho}/n_view{n_view}/rho0_{rho_0}-rho1_{rho_1}-lambda_{lam}-alpha0_{alpha_0}-alpha_1_{alpha_1}')
     save_root.mkdir(parents=True, exist_ok=True)
 
     irl_types = ['input', 'recon', 'label', 'BP', 'sinogram', 'volume']
@@ -110,7 +110,8 @@ def run(p_metho='TGV', p_n_view=90, p_rho_0=10, p_rho_1=10, p_alpha_0=1, p_alpha
 
     # read all data
     fname_list = os.listdir(root)
-    fname_list = sorted(fname_list, key=lambda x: float(x.split(".")[0]))
+    # fname_list = sorted(fname_list, key=lambda x: float(x.split(".")[0]))
+    fname_list = sorted(fname_list, key=lambda x: float(''.join([s for s in x if s.isdigit() or s == '.'])))
     print(fname_list)
     all_img = []
 
