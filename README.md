@@ -50,6 +50,12 @@ conda activate diff_tgv_env
 python experience.py --method <method_name> --view <num_view>
 ```
 
+or run all methods and all views:
+```bash
+conda activate diff_tgv_env
+bash run.sh
+```
+
 or set parameters self
 
 ```bash
